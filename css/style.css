@@ -1,0 +1,751 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #2C5F8C; /* Deep blue */
+    --secondary-color: #FFFFFF; /* Clean white */
+    --accent-color: #4A9B8E; /* Soft teal/green */
+    --text-color: #333333; /* Dark gray */
+    --background-color: #F8F9FA; /* Light gray/off-white */
+    --light-gray: #dddddd; /* For borders or subtle lines */
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; }
+
+p {
+    margin-bottom: 1rem;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: auto;
+    overflow: hidden; /* Clear floats */
+    padding: 0 20px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+.btn-primary:hover {
+    background-color: #1e4a75; /* Darker shade of primary */
+    text-decoration: none;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Padding utility classes */
+.py-1 { padding-top: 1rem; padding-bottom: 1rem; }
+.py-2 { padding-top: 2rem; padding-bottom: 2rem; }
+.py-3 { padding-top: 3rem; padding-bottom: 3rem; }
+.py-4 { padding-top: 4rem; padding-bottom: 4rem; }
+.py-5 { padding-top: 5rem; padding-bottom: 5rem; }
+
+.px-1 { padding-left: 1rem; padding-right: 1rem; }
+.px-2 { padding-left: 2rem; padding-right: 2rem; }
+/* etc. */
+
+
+/* Hero Section Styling */
+#hero {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    min-height: 60vh; /* Adjust as needed */
+    padding: 4rem 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative; /* For potential pseudo-elements or image overlays later */
+    background-image: url('https://images.pexels.com/photos/3992933/pexels-photo-3992933.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Dark overlay */
+    z-index: 1; /* Below content, above background image */
+}
+
+#hero .container { /* Ensure content is above overlay */
+    position: relative;
+    z-index: 2;
+}
+
+#hero h1 {
+    font-size: clamp(2.5rem, 5vw, 3.5rem); /* Responsive font size */
+    margin-bottom: 1rem;
+    color: var(--secondary-color); /* Ensure h1 color is white */
+    position: relative; /* Ensure z-index applies if not already a stacking context */
+    z-index: 2;
+}
+
+#hero p {
+    font-size: clamp(1rem, 2.5vw, 1.25rem); /* Responsive font size */
+    max-width: 70ch;
+    margin-bottom: 0; /* Remove default paragraph margin if H1 has enough */
+    color: var(--secondary-color); /* Ensure p color is white */
+    opacity: 0.9; /* Slightly less prominent than the title */
+    position: relative; /* Ensure z-index applies if not already a stacking context */
+    z-index: 2;
+}
+
+/* Navigation Bar Styling */
+#navbar {
+    background-color: var(--secondary-color);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 1rem 0;
+}
+
+#navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+.nav-logo:hover {
+    text-decoration: none;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin-left: 20px;
+}
+
+.nav-links a {
+    color: var(--text-color);
+    padding: 5px 10px;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.nav-links a:hover,
+.nav-links a.active { /* JavaScript will toggle .active class on scroll */
+    color: var(--primary-color);
+    text-decoration: none;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.hamburger-menu {
+    display: none; /* Hidden by default, shown in media query */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.hamburger-bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: var(--primary-color);
+    transition: all 0.3s ease-in-out;
+}
+
+/* Hamburger menu active state (X icon) */
+.hamburger-menu.is-active .hamburger-bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+.hamburger-menu.is-active .hamburger-bar:nth-child(2) {
+    opacity: 0;
+}
+.hamburger-menu.is-active .hamburger-bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none; /* Hide by default on mobile */
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 100%; /* Position below the navbar */
+        left: 0;
+        background-color: var(--secondary-color);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        padding-bottom: 10px; /* Add some padding at the bottom */
+    }
+
+    .nav-links.active { /* Class to be toggled by JavaScript */
+        display: flex;
+    }
+
+    .nav-links li {
+        margin: 10px 0;
+        text-align: center;
+    }
+
+    .nav-links a {
+        display: block; /* Make links take full width for easier tapping */
+        padding: 10px;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+         border-bottom: 2px solid transparent; /* Optional: remove border for mobile view or style differently */
+         background-color: var(--primary-color);
+         color: var(--secondary-color);
+    }
+
+    .hamburger-menu {
+        display: block; /* Show hamburger on mobile */
+    }
+}
+
+/* Important Notice Section Styling */
+#important-notice {
+    background-color: #fffbe6; /* A light yellow for notices */
+    border-top: 3px solid var(--accent-color);
+    border-bottom: 3px solid var(--accent-color);
+}
+
+#important-notice h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+.notice-content {
+    display: grid;
+    grid-template-columns: 1fr; /* Stack on mobile */
+    gap: 1.5rem;
+}
+
+.notice-item {
+    background-color: var(--secondary-color);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+}
+
+.notice-item h3 {
+    color: var(--accent-color);
+    margin-bottom: 0.75rem;
+}
+
+.notice-item p {
+    margin-bottom: 0.5rem;
+    line-height: 1.7;
+}
+
+.notice-item strong {
+    color: var(--primary-color);
+}
+
+@media (min-width: 769px) { /* Adjust breakpoint as needed */
+    .notice-content {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive columns */
+    }
+}
+
+/* Our Staff Section Styling */
+#our-staff {
+    background-color: var(--background-color); /* Or var(--secondary-color) if preferred */
+}
+
+#our-staff h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 2rem; /* More space before the cards */
+}
+
+.staff-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive columns */
+    gap: 2rem; /* Space between cards */
+}
+
+.staff-card {
+    background-color: var(--secondary-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    padding: 1.5rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.staff-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.staff-image {
+    width: 120px; /* Or a fixed size */
+    height: 120px;
+    border-radius: 50%; /* Circular images */
+    object-fit: cover; /* Ensure image covers the area well */
+    margin-bottom: 1rem;
+    border: 3px solid var(--accent-color);
+}
+
+.staff-card h3 {
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.staff-title {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.8;
+    margin-bottom: 0; /* Remove default paragraph margin */
+}
+
+/* Our Services Section Styling */
+#our-services {
+    background-color: var(--secondary-color); /* White background */
+}
+
+#our-services h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+}
+
+.services-grid {
+    display: grid;
+    /* Adjust minmax for desired card size, e.g., 200px for smaller service cards */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem; /* Space between cards */
+}
+
+.service-card {
+    background-color: var(--background-color); /* Light gray background for cards */
+    border-radius: 8px;
+    border: 1px solid var(--light-gray); /* Subtle border */
+    padding: 1.5rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    border-color: var(--accent-color); /* Accent color border on hover */
+}
+
+.service-icon {
+    width: 60px; /* Adjust size as needed */
+    height: 60px;
+    margin-bottom: 1rem;
+    object-fit: contain; /* Use 'contain' if icons have varied aspect ratios */
+    /* Tint icons with accent color if they are single-color SVGs/PNGs */
+    /* filter: invert(56%) sepia(15%) saturate(1557%) hue-rotate(120deg) brightness(90%) contrast(88%); */
+    /* This filter is an example to make an image appear like the accent color #4A9B8E. Adjust as needed. */
+}
+
+.service-card h3 {
+    color: var(--primary-color);
+    font-size: 1.1rem; /* Slightly smaller than staff names */
+    margin-bottom: 0;
+}
+
+/* Clinic Hours Section Styling */
+#clinic-hours {
+    background-color: var(--background-color); /* Light gray background */
+}
+
+#clinic-hours h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+}
+
+.hours-content-wrapper {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    align-items: center;
+    gap: 2rem;
+    background-color: var(--secondary-color); /* White background for the content area */
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.hours-text {
+    flex: 1; /* Takes available space */
+    min-width: 280px; /* Minimum width before wrapping */
+}
+
+.hours-image-container {
+    flex: 1;
+    text-align: center; /* Center image if it's smaller than container */
+    min-width: 280px;
+}
+
+.hours-text .days {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.hours-text .times {
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+    padding-left: 1rem; /* Indent times under days */
+}
+
+.special-note {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background-color: #eef7ff; /* Light blue, or similar to notice background */
+    border-left: 4px solid var(--accent-color);
+    border-radius: 4px;
+}
+
+.special-note p {
+    margin-bottom: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.special-note strong {
+    color: var(--primary-color);
+}
+
+.hours-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    /* Consider a subtle shadow or border if it fits the design */
+    /* box-shadow: 0 2px 8px rgba(0,0,0,0.1); */
+}
+
+/* Fees & Payment Section Styling */
+#fees-payment {
+    background-color: var(--secondary-color); /* White background */
+}
+
+#fees-payment h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+}
+
+.fees-content {
+    /* Can be enhanced with grid later if needed */
+}
+
+.fee-category, .payment-info {
+    background-color: var(--background-color); /* Light gray background for cards */
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.fee-category h3, .payment-info h3 {
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--light-gray);
+    padding-bottom: 0.5rem;
+}
+
+.fee-list, .payment-methods-list {
+    list-style: none; /* Removes default bullets */
+    padding-left: 0; /* Removes default padding */
+}
+
+.fee-list li, .payment-methods-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px dotted var(--light-gray); /* Subtle separator for items */
+    font-size: 1rem;
+}
+
+.fee-list li:last-child, .payment-methods-list li:last-child {
+    border-bottom: none;
+}
+
+.fee-list strong { /* For the item description, e.g., "New Patient Consultation:" */
+    color: var(--primary-color);
+}
+
+.payment-info p {
+    margin-bottom: 0.75rem;
+    line-height: 1.7;
+}
+
+/* Footer Styling */
+#footer {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    text-align: center; /* Center copyright by default */
+    position: relative; /* For positioning the back-to-top button */
+}
+
+#footer .container {
+    position: relative; /* For the back-to-top button positioning relative to container */
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Distribute space between items */
+    gap: 1.5rem;
+    text-align: left; /* Align text to left for individual columns */
+    padding-bottom: 1rem; /* Space above copyright */
+}
+
+.contact-info, .footer-links {
+    flex: 1; /* Allow them to grow */
+    min-width: 250px; /* Minimum width before stacking */
+}
+
+.contact-info h4, .footer-links h4 {
+    color: var(--secondary-color);
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid var(--accent-color);
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+
+.contact-info p {
+    margin-bottom: 0.5rem; /* Reduced margin for footer paragraphs */
+}
+.footer-links ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0.5rem; /* Reduced margin */
+}
+
+.footer-links li a {
+    color: var(--background-color); /* Lighter than pure white for subtlety */
+    text-decoration: none;
+    padding: 0.25rem 0;
+    display: inline-block; /* For padding to take effect */
+    transition: color 0.3s ease;
+}
+
+.footer-links li a:hover {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+#footer a { /* General link styling within footer */
+    color: var(--accent-color);
+}
+#footer a:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+.copy-right {
+    width: 100%; /* Take full width */
+    text-align: center;
+    padding-top: 1rem;
+    border-top: 1px solid var(--accent-color);
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-bottom: 0; /* Remove default p margin */
+}
+
+.back-to-top-btn {
+    position: fixed; /* Fixed position relative to viewport */
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--accent-color);
+    color: var(--secondary-color);
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px; /* Vertically center the arrow */
+    font-size: 1.5rem; /* Size of the arrow */
+    border-radius: 50%; /* Circular button */
+    text-decoration: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+    opacity: 0; /* Initially hidden */
+    visibility: hidden; /* Initially hidden and not focusable */
+    z-index: 100;
+}
+
+.back-to-top-btn:hover {
+    background-color: #3a8a7e; /* Darker accent */
+    color: var(--secondary-color);
+    text-decoration: none;
+}
+
+.back-to-top-btn.visible { /* Class added by JavaScript */
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Responsive Design Enhancements */
+
+/* General Typography for smaller screens */
+@media (max-width: 480px) {
+    body {
+        font-size: 15px;
+    }
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.75rem; }
+    h3 { font-size: 1.5rem; }
+
+    .container {
+        padding: 0 15px; /* Slightly reduce container padding */
+    }
+}
+
+/* Hero Section on smaller screens */
+@media (max-width: 768px) {
+    #hero {
+        min-height: 50vh;
+        padding: 3rem 20px;
+    }
+}
+
+/* Our Staff Section on very small screens */
+@media (max-width: 576px) {
+    .staff-grid {
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+    .staff-card {
+        padding: 1rem;
+    }
+    .staff-image {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+/* Our Services Section on very small screens */
+@media (max-width: 480px) {
+    .services-grid {
+        gap: 1rem;
+        grid-template-columns: 1fr; /* Stack to single column */
+    }
+    .service-card {
+        padding: 1rem;
+    }
+    .service-icon {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+/* Clinic Hours Section when stacking */
+@media (max-width: 768px) {
+    .hours-content-wrapper {
+        flex-direction: column;
+        padding: 1.5rem;
+    }
+    .hours-text, .hours-image-container {
+        text-align: center;
+        flex-basis: 100%;
+    }
+    .hours-text .times {
+         padding-left: 0;
+         text-align: center;
+    }
+     .hours-text .days {
+        text-align: center;
+    }
+    .special-note {
+        text-align: left; /* Keep special note text left-aligned for readability */
+    }
+}
+
+/* Fees & Payment Section on very small screens */
+@media (max-width: 576px) {
+    .fee-category, .payment-info {
+        padding: 1rem;
+    }
+    .fee-list li, .payment-methods-list li {
+        font-size: 0.95rem;
+    }
+}
+
+/* Footer on smaller screens */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .contact-info, .footer-links {
+        min-width: auto; /* Allow columns to shrink fully */
+        width: 100%; /* Take full width when stacked */
+    }
+    .contact-info h4, .footer-links h4 {
+        display: block;
+        border-bottom: none; /* Remove border for centered headings */
+        padding-bottom: 0.25rem;
+        margin-bottom: 0.5rem;
+    }
+    .footer-links ul{
+        padding-left: 0; /* Ensure no extra padding on mobile */
+    }
+}
+
+/* Ensure buttons are easily tappable */
+.hamburger-menu {
+    padding: 15px; /* Increase tap area */
+}
+
+.back-to-top-btn {
+    width: 45px; /* Slightly larger tap target */
+    height: 45px;
+    line-height: 45px;
+    font-size: 1.6rem;
+}
