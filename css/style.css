@@ -96,7 +96,7 @@ html {
     align-items: center;
     text-align: center;
     position: relative; /* For potential pseudo-elements or image overlays later */
-    background-image: url('https://images.pexels.com/photos/3992933/pexels-photo-3992933.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+    background-image: url('https://images.pexels.com/photos/40568/medical-appointment-doctor-healthcare-40568.jpeg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
